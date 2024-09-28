@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added viewport meta tag for responsiveness -->
+  <title>Diabetes Prediction</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+
+    body {
+        background: url("https://d2jx2rerrg6sh3.cloudfront.net/images/news/ImageForNews_726338_16642761761616888.jpg") center center no-repeat;
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        padding: 10px; /* Added padding for smaller screens */
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap; /* Allow forms to wrap on smaller screens */
+        justify-content: center; /* Center forms in container */
+        max-width: 800px; /* Max width for the forms */
+        width: 100%; /* Full width for smaller screens */
+        height: auto;
+        box-sizing: border-box; /* Includes padding in width calculation */
+    }
+
+    .formbg {
+        background: #f8f4e5;
+        padding: 20px;
+        border: 2px solid rgba(0, 0, 0, 1);
+        box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px rgba(0, 0, 0, 1);
+        flex: 1; /* Allow forms to grow equally */
+        margin: 10px; /* Space between forms */
+        min-width: 300px; /* Minimum width for form */
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    h1 {
+        font-family: 'Fjalla One', sans-serif;
+        text-align: center; /* Center the heading */
+        margin-bottom: 20px; /* Space below heading */
+        font-size: 24pt; /* Responsive font size */
+        color: #2A293E; /* Heading color */
+    }
+
+    input {
+        display: block;
+        width: 100%;
+        font-size: 14pt;
+        line-height: 28pt; /* $font-size * 2 */
+        font-family: 'Fjalla One', sans-serif;
+        margin-bottom: 20px; /* Space between inputs */
+        border: none;
+        border-bottom: 5px solid rgba(0, 0, 0, 1);
+        background: #f8f4e5;
+        padding-left: 5px;
+        outline: none;
+        color: rgba(0, 0, 0, 1);
+    }
+
+    input:focus {
+        border-bottom: 5px solid #ffa580;
+    }
+
+    button {
+        display: block;
+        margin: 0 auto;
+        line-height: 28pt; /* $font-size * 2 */
+        padding: 10px 20px; /* Adjust padding for button */
+        background: #ffa580;
+        letter-spacing: 2px;
+        transition: .2s all ease-in-out;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 1);
+        box-shadow: 3px 3px 1px 1px #95a4ff, 3px 3px 1px 2px rgba(0, 0, 0, 1);
+        cursor: pointer; /* Change cursor to pointer */
+    }
+
+    button:hover {
+        background: rgba(0, 0, 0, 1);
+        color: white;
+        border: 1px solid rgba(0, 0, 0, 1);
+    }
+
+    ::selection {
+        background: #ffc8ff;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        border-bottom: 5px solid #95a4ff;
+        -webkit-text-fill-color: #2A293E;
+        -webkit-box-shadow: 0 0 0px 1000px #f8f4e5 inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+        .formbg {
+            padding: 15px; /* Reduce padding on smaller screens */
+        }
+
+        button {
+            width: 100%; /* Make buttons full width on smaller screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        input {
+            font-size: 12pt; /* Smaller font size for mobile */
+        }
+
+        h1 {
+            font-size: 20pt; /* Adjust heading size for smaller screens */
+        }
+
+        .formbg {
+            padding: 10px; /* Further reduce padding on very small screens */
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="formbg">
+      <h1>PYTHON BYTES PHARMA DYBETICS PREDICTION</h1>
+      <form id="diabetes-prediction-form" action="{% url 'predict' %}" method="post">
+        {% csrf_token %}
+        <div class="field padding-bottom--24">
+          <label for="gender">Gender (0 for Male, 1 for Female):</label>
+          <input type="text" name="gender" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="age">Age:</label>
+          <input type="number" name="age" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="hypertension">Hypertension (0 or 1):</label>
+          <input type="number" name="hypertension" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="heart_disease">Heart Disease (0 or 1):</label>
+          <input type="number" name="heart_disease" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="smoking_history">Smoking History (0, 1, 2, 3, or 4):</label>
+          <input type="number" name="smoking_history" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="bmi">BMI:</label>
+          <input type="number" step="0.01" name="bmi" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="HbA1c_level">HbA1c Level:</label>
+          <input type="number" step="0.1" name="HbA1c_level" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <label for="blood_glucose_level">Blood Glucose Level:</label>
+          <input type="number" name="blood_glucose_level" required>
+        </div>
+        <div class="field padding-bottom--24">
+          <input type="submit" name="submit" value="Predict">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
